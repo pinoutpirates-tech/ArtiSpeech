@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-muted hover:text-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-muted hover:text-foreground",
+        outline: "border border-input bg-background/80 backdrop-blur-sm hover:bg-muted hover:text-foreground transition-all duration-300",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-300",
+        ghost: "hover:bg-muted hover:text-foreground transition-all duration-300",
         link: "text-primary underline-offset-4 hover:underline",
-        voice: "bg-accent-gold text-accent-gold-foreground hover:bg-accent-gold/90 font-semibold shadow-lg",
-        artisan: "bg-secondary text-secondary-foreground hover:bg-secondary/90 border border-secondary-muted",
-        gold: "bg-accent-gold text-accent-gold-foreground hover:bg-accent-gold/80 font-medium",
-        maroon: "bg-accent-maroon text-accent-maroon-foreground hover:bg-accent-maroon/90",
+        voice: "bg-accent-gold text-accent-gold-foreground hover:bg-accent-gold/90 font-semibold shadow-lg transition-all duration-300 hover:scale-105",
+        artisan: "bg-secondary text-secondary-foreground hover:bg-secondary/90 border border-secondary-muted transition-all duration-300",
+        gold: "bg-accent-gold text-accent-gold-foreground hover:bg-accent-gold/80 font-medium transition-all duration-300",
+        maroon: "bg-accent-maroon text-accent-maroon-foreground hover:bg-accent-maroon/90 transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",
