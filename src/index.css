@@ -2,39 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Artispeech Design System - Authentic Indian Crafts Marketplace
+All colors MUST be HSL for consistency and theming.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Brand Colors - Inspired by Indian Crafts */
+    --background: 35 15% 97%; /* Warm off-white */
+    --foreground: 15 8% 25%; /* Charcoal gray */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 20% 98%;
+    --card-foreground: 15 8% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 20% 98%;
+    --popover-foreground: 15 8% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Terracotta Orange */
+    --primary: 15 75% 55%; /* Terracotta orange */
+    --primary-foreground: 35 15% 97%;
+    --primary-muted: 15 45% 75%; /* Softer terracotta */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Deep Forest Green */
+    --secondary: 140 30% 35%; /* Deep forest green */
+    --secondary-foreground: 35 15% 97%;
+    --secondary-muted: 140 20% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent Colors */
+    --accent-gold: 45 85% 45%; /* Deep gold */
+    --accent-gold-foreground: 15 8% 25%;
+    --accent-maroon: 0 50% 35%; /* Soft maroon */
+    --accent-maroon-foreground: 35 15% 97%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Neutrals */
+    --muted: 35 12% 90%; /* Warm beige */
+    --muted-foreground: 15 8% 45%;
+    --warm-beige: 35 25% 85%;
+    --warm-neutral: 25 15% 75%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 35 15% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 15% 85%;
+    --input: 35 20% 95%;
+    --ring: 15 75% 55%;
 
     --radius: 0.5rem;
 
