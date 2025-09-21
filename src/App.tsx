@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,14 +12,14 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [user, setUser] = useState<{ type: 'buyer' | 'artisan', language: string } | null>(null);
+  const [user, setUser] = useState<{ type: "buyer" | "artisan"; language: string } | null>(null);
 
-  const handleLogin = (userType: 'buyer' | 'artisan', language: string) => {
+  const handleLogin = (userType: "buyer" | "artisan", language: string) => {
     setUser({ type: userType, language });
   };
 
   const handleLogout = () => {
-    setUser(null);
+    setUser(null); //  goes back to LoginScreen
   };
 
   return (
@@ -29,15 +29,24 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={
-              !user ? (
-                <LoginScreen onLogin={handleLogin} />
-              ) : user.type === 'artisan' ? (
-                <ArtisanDashboard language={user.language} />
-              ) : (
-                <BuyerHome />
-              )
-            } />
+            <Route
+              path="/"
+              element={
+                !user ? (
+                  <LoginScreen onLogin={handleLogin} />
+                ) : user.type === "artisan" ? (
+                  <ArtisanDashboard
+                    language={user.language}
+                    onBack={handleLogout} //  pass back handler
+                  />
+                ) : (
+                  <BuyerHome
+                    language={user.language}
+                    onBack={handleLogout} //  pass back handler
+                  />
+                )
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

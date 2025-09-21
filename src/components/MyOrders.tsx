@@ -32,7 +32,7 @@ const mockOrders: Order[] = [
     price: 3000,
     status: 'pending',
     orderDate: '2024-01-15',
-    productImage: '/api/placeholder/100/100'
+    productImage: 'https://www.sundarisilks.com/cdn/shop/files/Traditional_Silk_Cotton_Saree_In_Indigo_Blue_With_Zari_Butta_1_752X1127.png?v=1749626478'
   },
   {
     id: 'ORD002',
@@ -43,14 +43,59 @@ const mockOrders: Order[] = [
     price: 1500,
     status: 'confirmed',
     orderDate: '2024-01-14',
-    productImage: '/api/placeholder/100/100'
-  }
+    productImage: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR0TAo0qhj7MiL2e8kiE0id1a0Nxyy6s7OutbvY7t2CmTzts4Bz1r9_hKyEBfEPeYXL0Qz6RdFosLdS3m6ISIKG8KkhUyMHT9yZi3bqadR2'
+  },
+  {
+  id: 'ORD003',
+  productName: 'Terracotta Flower Pot',
+  buyerName: 'Ramesh Kumar',
+  buyerPhone: '+91 91234 56789',
+  buyerAddress: '78 Gandhi Street, Hyderabad, Telangana 500001',
+  price: 800,
+  status: 'pending',
+  orderDate: '2024-01-16',
+  productImage: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT7Bq1gaGLZTws-nMI6denP_n1vgK05JMpifx0sNsdG-N8yfFHmKfYXIUXbmGuwIncgemgloYUU9ml_oxdZ6BhVCPeheRR0rSR1nTRH9koS4dprWlSy6o_Omg'
+},
+{
+  id: 'ORD004',
+  productName: 'Wooden Jewelry Box',
+  buyerName: 'Meera Joshi',
+  buyerPhone: '+91 99887 66554',
+  buyerAddress: '22 FC Road, Pune, Maharashtra 411005',
+  price: 1200,
+  status: 'packed',
+  orderDate: '2024-01-13',
+  productImage: 'https://m.media-amazon.com/images/I/61iMLo7LhwL.jpg'
+},
+{
+  id: 'ORD005',
+  productName: 'Hand-painted Wall Plate',
+  buyerName: 'Sunita Agarwal',
+  buyerPhone: '+91 98765 11122',
+  buyerAddress: '55 Park Street, Kolkata, West Bengal 700016',
+  price: 950,
+  status: 'delivered',
+  orderDate: '2024-01-10',
+  productImage: 'http://prettyhomesindia.com/cdn/shop/files/5_9094650c-1b94-49af-96aa-076d815c29a5.jpg?crop=center&height=1200&v=1744186509&width=1200'
+},
+{
+  id: 'ORD006',
+  productName: 'Brass Oil Lamp',
+  buyerName: 'Arun Singh',
+  buyerPhone: '+91 90909 80808',
+  buyerAddress: '89 Civil Lines, Lucknow, Uttar Pradesh 226001',
+  price: 2200,
+  status: 'pending',
+  orderDate: '2024-01-17',
+  productImage: 'https://m.media-amazon.com/images/I/31OCywHYgDL._UF1000,1000_QL80_.jpg'
+}
+
 ];
 
 const mockDeliveryPartners = [
-  { id: '1', name: 'Ravi Kumar', phone: '+91 99999 11111', rating: 4.8, image: '/api/placeholder/50/50' },
-  { id: '2', name: 'Suresh Babu', phone: '+91 88888 22222', rating: 4.6, image: '/api/placeholder/50/50' },
-  { id: '3', name: 'Mohan Singh', phone: '+91 77777 33333', rating: 4.9, image: '/api/placeholder/50/50' }
+  { id: '1', name: 'Ravi Kumar', phone: '+91 99999 11111', rating: 4.8, image: 'https://cdn-icons-png.flaticon.com/512/168/168726.png' },
+  { id: '2', name: 'Suresh Babu', phone: '+91 88888 22222', rating: 4.6, image: 'https://cdn-icons-png.flaticon.com/512/168/168726.png' },
+  { id: '3', name: 'Mohan Singh', phone: '+91 77777 33333', rating: 4.9, image: 'https://cdn-icons-png.flaticon.com/512/168/168726.png' }
 ];
 
 export const MyOrders: React.FC<MyOrdersProps> = ({ language, onBack }) => {
