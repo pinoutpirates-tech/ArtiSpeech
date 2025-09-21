@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Camera, Upload, Mic, Check, X } from 'lucide-react';
-import { VoiceAssistant } from './VoiceAssistant';
+import React, { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft, Camera, Upload, X, Check } from "lucide-react";
+import { VoiceAssistant } from "./VoiceAssistant";
 
 interface AddProductProps {
   language: string;
@@ -10,19 +10,23 @@ interface AddProductProps {
   onProductAdded: (product: any) => void;
 }
 
-export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProductAdded }) => {
+export const AddProduct: React.FC<AddProductProps> = ({
+  language,
+  onBack,
+  onProductAdded,
+}) => {
   const [step, setStep] = useState(1);
   const [productImage, setProductImage] = useState<string | null>(null);
   const [productData, setProductData] = useState({
-    name: '',
-    price: '',
-    description: '',
-    nameNative: '',
-    descriptionNative: ''
+    name: "",
+    description: "",
+    price: "",
+    nameNative: "",
+    descriptionNative: "",
   });
-  const [voicePrompt, setVoicePrompt] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // translations for UI labels
   const getText = (key: string) => {
     const translations = {
       english: {
@@ -38,28 +42,31 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
         next: "Next",
         back: "Back",
         confirm: "Confirm & Publish",
-        voicePrompt: "Now, please tell me the product name, price, and description. For example: 'Blue silk saree, handwoven, price 3000 rupees'",
+        voicePrompt:
+          "Now, please tell me the product name, price, and description.",
         isCorrect: "Is all this information correct?",
         englishVersion: "English Version:",
-        nativeVersion: "Your Language:"
+        nativeVersion: "Your Language:",
       },
       tamil: {
         addProduct: "புதிய தயாரிப்பு சேர்க்கவும்",
         step1Title: "தயாரிப்பு புகைப்படம் பதிவேற்றவும்",
         step1Subtitle: "புகைப்படம் எடுக்கவும் அல்லது கேலரியிலிருந்து பதிவேற்றவும்",
         step2Title: "தயாரிப்பு விவரங்கள்",
-        step2Subtitle: "உங்கள் தயாரிப்பைப் பற்றி என்னிடம் சொல்லுங்கள்",
+        step2Subtitle: "உங்கள் தயாரிப்பைப் பற்றி சொல்லுங்கள்",
         step3Title: "மதிப்பாய்வு மற்றும் உறுதிப்படுத்தல்",
-        step3Subtitle: "வெளியிடுவதற்கு முன் அனைத்து விவரங்களையும் சரிபார்க்கவும்",
+        step3Subtitle:
+          "வெளியிடுவதற்கு முன் அனைத்து விவரங்களையும் சரிபார்க்கவும்",
         takePhoto: "புகைப்படம் எடுக்கவும்",
         uploadPhoto: "கேலரியிலிருந்து பதிவேற்றவும்",
         next: "அடுத்தது",
         back: "திரும்பு",
         confirm: "உறுதிப்படுத்தி வெளியிடவும்",
-        voicePrompt: "இப்போது, தயாரிப்பு பெயர், விலை மற்றும் விளக்கத்தை என்னிடம் சொல்லுங்கள். உதாரணம்: 'இது காஞ்சி பட்டு சாடி, நீல நிறம், கைநூல் வேலை, விலை 3000 ரூபாய்'",
+        voicePrompt:
+          "இப்போது தயாரிப்பு பெயர், விலை மற்றும் விளக்கத்தை சொல்லுங்கள்.",
         isCorrect: "இந்த தகவல்கள் அனைத்தும் சரியானதா?",
         englishVersion: "ஆங்கில பதிப்பு:",
-        nativeVersion: "உங்கள் மொழி:"
+        nativeVersion: "உங்கள் மொழி:",
       },
       hindi: {
         addProduct: "नया उत्पाद जोड़ें",
@@ -74,15 +81,21 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
         next: "अगला",
         back: "वापस",
         confirm: "पुष्टि करें और प्रकाशित करें",
-        voicePrompt: "अब कृपया उत्पाद का नाम, कीमत और विवरण बताएं। उदाहरण: 'नीली रेशमी साड़ी, हाथ से बुनी हुई, कीमत 3000 रुपये'",
+        voicePrompt:
+          "अब कृपया उत्पाद का नाम, कीमत और विवरण बताएं।",
         isCorrect: "क्या यह सारी जानकारी सही है?",
         englishVersion: "अंग्रेजी संस्करण:",
-        nativeVersion: "आपकी भाषा:"
-      }
+        nativeVersion: "आपकी भाषा:",
+      },
     };
-    return translations[language as keyof typeof translations]?.[key as keyof typeof translations['english']] || key;
+    return (
+      translations[language as keyof typeof translations]?.[
+        key as keyof typeof translations["english"]
+      ] || key
+    );
   };
 
+  // photo upload handler
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -94,19 +107,33 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
     }
   };
 
+  // voice input handler
   const handleVoiceCommand = (command: string) => {
-    // Mock translation and parsing
-    const mockTranslation = {
-      name: "Handwoven Silk Saree",
-      price: "3000",
-      description: "Beautiful blue Kanchi silk saree with intricate handwoven patterns",
-      nameNative: command.includes('சாடி') ? 'காஞ்சி பட்டு சாடி' : 
-                  command.includes('साड़ी') ? 'रेशमी साड़ी' : 
-                  command.split(',')[0] || 'Product Name',
-      descriptionNative: command
+    if (!command) return;
+
+    // try to extract price from spoken text
+    const priceMatch = command.match(/(\d+)/);
+    const price = priceMatch ? priceMatch[1] : "0";
+
+    // simple split: first part = name, rest = description
+    const [namePart, ...descParts] = command.split(",");
+    const nameNative = namePart?.trim() || "Unnamed Product";
+    const descriptionNative = descParts.join(",").trim() || command;
+
+    // placeholder English translation (replace with API later)
+    const englishTranslation = {
+      name: "Translated Product",
+      description: "Translated Description",
     };
-    
-    setProductData(mockTranslation);
+
+    setProductData({
+      name: englishTranslation.name,
+      description: englishTranslation.description,
+      price,
+      nameNative,
+      descriptionNative: command,
+    });
+
     setStep(3);
   };
 
@@ -115,24 +142,27 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
       id: Date.now(),
       image: productImage,
       ...productData,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
     onProductAdded(newProduct);
     onBack();
   };
 
+  // step 1 UI
   const renderStep1 = () => (
     <Card className="gradient-card glow-primary border-primary/30">
       <CardHeader>
-        <CardTitle className="text-center">{getText('step1Title')}</CardTitle>
-        <p className="text-center text-muted-foreground text-sm">{getText('step1Subtitle')}</p>
+        <CardTitle className="text-center">{getText("step1Title")}</CardTitle>
+        <p className="text-center text-muted-foreground text-sm">
+          {getText("step1Subtitle")}
+        </p>
       </CardHeader>
       <CardContent className="space-y-6">
         {productImage ? (
           <div className="relative">
-            <img 
-              src={productImage} 
-              alt="Product" 
+            <img
+              src={productImage}
+              alt="Product"
               className="w-full h-48 object-cover rounded-lg border-2 border-primary/20"
             />
             <Button
@@ -150,26 +180,26 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
             <p className="text-muted-foreground mb-4">No image selected</p>
           </div>
         )}
-        
+
         <div className="grid grid-cols-2 gap-4">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => fileInputRef.current?.click()}
             className="h-16 flex-col gap-2"
           >
             <Camera className="h-6 w-6" />
-            <span className="text-sm">{getText('takePhoto')}</span>
+            <span className="text-sm">{getText("takePhoto")}</span>
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => fileInputRef.current?.click()}
             className="h-16 flex-col gap-2"
           >
             <Upload className="h-6 w-6" />
-            <span className="text-sm">{getText('uploadPhoto')}</span>
+            <span className="text-sm">{getText("uploadPhoto")}</span>
           </Button>
         </div>
-        
+
         <input
           ref={fileInputRef}
           type="file"
@@ -177,24 +207,27 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
           onChange={handleImageUpload}
           className="hidden"
         />
-        
-        <Button 
-          onClick={() => setStep(2)} 
+
+        <Button
+          onClick={() => setStep(2)}
           disabled={!productImage}
           className="w-full gradient-primary"
           size="lg"
         >
-          {getText('next')}
+          {getText("next")}
         </Button>
       </CardContent>
     </Card>
   );
 
+  // step 2 UI
   const renderStep2 = () => (
     <Card className="gradient-card glow-gold border-accent-gold/30">
       <CardHeader>
-        <CardTitle className="text-center">{getText('step2Title')}</CardTitle>
-        <p className="text-center text-muted-foreground text-sm">{getText('step2Subtitle')}</p>
+        <CardTitle className="text-center">{getText("step2Title")}</CardTitle>
+        <p className="text-center text-muted-foreground text-sm">
+          {getText("step2Subtitle")}
+        </p>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="text-center">
@@ -202,78 +235,86 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
             language={language}
             onCommand={handleVoiceCommand}
             size="large"
-            prompt={getText('voicePrompt')}
+            prompt={getText("voicePrompt")}
             className="mx-auto"
           />
           <p className="text-sm text-muted-foreground mt-4">
-            {getText('voicePrompt')}
+            {getText("voicePrompt")}
           </p>
         </div>
-        
+
         <div className="flex gap-4">
           <Button variant="outline" onClick={() => setStep(1)} className="flex-1">
-            {getText('back')}
+            {getText("back")}
           </Button>
         </div>
       </CardContent>
     </Card>
   );
 
+  // step 3 UI
   const renderStep3 = () => (
     <Card className="gradient-card glow-primary border-primary/30">
       <CardHeader>
-        <CardTitle className="text-center">{getText('step3Title')}</CardTitle>
-        <p className="text-center text-muted-foreground text-sm">{getText('step3Subtitle')}</p>
+        <CardTitle className="text-center">{getText("step3Title")}</CardTitle>
+        <p className="text-center text-muted-foreground text-sm">
+          {getText("step3Subtitle")}
+        </p>
       </CardHeader>
       <CardContent className="space-y-6">
         {productImage && (
-          <img 
-            src={productImage} 
-            alt="Product preview" 
+          <img
+            src={productImage}
+            alt="Product preview"
             className="w-full h-32 object-cover rounded-lg"
           />
         )}
-        
+
         <div className="space-y-4">
-          <Card className="p-4 bg-background/50">
-            <h4 className="font-semibold text-accent-gold mb-2">{getText('nativeVersion')}</h4>
-            <p className="font-medium">{productData.nameNative}</p>
-            <p className="text-sm text-muted-foreground mt-1">{productData.descriptionNative}</p>
-          </Card>
-          
-          <Card className="p-4 bg-background/50">
-            <h4 className="font-semibold text-primary mb-2">{getText('englishVersion')}</h4>
-            <p className="font-medium">{productData.name}</p>
-            <p className="text-2xl font-bold text-primary">₹{productData.price}</p>
-            <p className="text-sm text-muted-foreground mt-1">{productData.description}</p>
-          </Card>
+          <div>
+            <h4 className="font-semibold">{getText("nativeVersion")}</h4>
+            <p>
+              {productData.nameNative} – {productData.descriptionNative} – ₹
+              {productData.price}
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold">{getText("englishVersion")}</h4>
+            <p>
+              {productData.name} – {productData.description} – ₹
+              {productData.price}
+            </p>
+          </div>
         </div>
-        
-        <p className="text-center text-sm text-muted-foreground">
-          {getText('isCorrect')}
-        </p>
-        
+
         <div className="flex gap-4">
           <Button variant="outline" onClick={() => setStep(2)} className="flex-1">
-            {getText('back')}
+            {getText("back")}
           </Button>
-          <Button onClick={handleConfirm} className="flex-1 gradient-primary" size="lg">
+          <Button onClick={handleConfirm} className="flex-1 gradient-primary">
             <Check className="h-4 w-4 mr-2" />
-            {getText('confirm')}
+            {getText("confirm")}
           </Button>
         </div>
       </CardContent>
     </Card>
   );
 
+  // main return
   return (
     <div className="min-h-screen bg-gradient-background p-4">
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="icon" onClick={onBack} className="glow-primary">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onBack}
+          className="glow-primary"
+        >
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        <h1 className="text-xl font-bold">{getText('addProduct')}</h1>
+        <h1 className="text-xl font-bold">{getText("addProduct")}</h1>
         <VoiceAssistant language={language} className="ml-auto" />
       </div>
 
@@ -284,11 +325,11 @@ export const AddProduct: React.FC<AddProductProps> = ({ language, onBack, onProd
             <div
               key={i}
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                i === step 
-                  ? 'bg-primary text-primary-foreground glow-primary' 
-                  : i < step 
-                    ? 'bg-accent-gold text-accent-gold-foreground' 
-                    : 'bg-muted text-muted-foreground'
+                i === step
+                  ? "bg-primary text-primary-foreground glow-primary"
+                  : i < step
+                  ? "bg-accent-gold text-accent-gold-foreground"
+                  : "bg-muted text-muted-foreground"
               }`}
             >
               {i}
